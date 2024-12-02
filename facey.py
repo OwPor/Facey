@@ -103,6 +103,7 @@ def attendance_camera():
     camera_window = tk.Toplevel()
     camera_window.title("Attendance Camera")
     camera_window.geometry("800x650")
+    camera_window.iconbitmap("./facey.ico")
     camera_window.configure(bg="#f0f8ff")
     center_window(camera_window)
 
@@ -203,6 +204,7 @@ def add_user():
     window = tk.Toplevel()
     window.title("Add User")
     window.geometry("400x300")
+    window.iconbitmap("./facey.ico")
     center_window(window)
     window.configure(bg="#f0f8ff")
 
@@ -219,6 +221,7 @@ def add_user():
 def attendance_logs():
     log_window = tk.Toplevel()
     log_window.title("Attendance Logs")
+    log_window.iconbitmap("./facey.ico")
     log_window.geometry("600x400")
     center_window(log_window)
 
