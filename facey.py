@@ -29,12 +29,13 @@ def encrypt_data(data):
 def decrypt_data(data):
     return cipher.decrypt(data).decode()
 
-save_dir = "./faces"
+# save_dir = "./faces"
+# if not os.path.exists(save_dir):
+#     os.makedirs(save_dir)
+
 log_file = "./attendance.log"
 encodings_file = "./face_encodings_final"
 
-if not os.path.exists(save_dir):
-    os.makedirs(save_dir)
 
 if os.path.exists(encodings_file):
     with open(encodings_file, "rb") as f:
@@ -195,10 +196,13 @@ def add_user():
                     cap.release()
                     window.destroy()
                 else:
+                    cap.release()
                     messagebox.showerror("Error", "No face detected. Try again.")
             else:
+                cap.release()
                 messagebox.showerror("Error", "Failed to capture image.")
         else:
+            cap.release()
             messagebox.showwarning("Input Error", "Please enter a name.")
 
     window = tk.Toplevel()
