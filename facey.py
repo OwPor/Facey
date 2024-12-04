@@ -75,7 +75,7 @@ def chk_face(frame):
         faces_cur_frame = face_recognition.face_locations(imgS)
         encodes_cur_frame = face_recognition.face_encodings(imgS, faces_cur_frame)
 
-        for encode_face, face_loc in zip(encodes_cur_frame, faces_cur_frame):
+        for encode_face, _ in zip(encodes_cur_frame, faces_cur_frame):
             matches = face_recognition.compare_faces(data["encodings"], encode_face)
             face_dis = face_recognition.face_distance(data["encodings"], encode_face)
             match_index = np.argmin(face_dis) if len(face_dis) > 0 else None
@@ -92,7 +92,7 @@ def chk_face(frame):
                     winsound.Beep(1000, 200)
                     engine.runAndWait()
                 break
-    except Exception as e:
+    except Exception:
         face_match = None
 
 def attendance_camera():
@@ -173,7 +173,7 @@ def add_user():
         ret, frame = cap.read()
         if ret:
             frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-            img = cv2.resize(frame_rgb, (320, 240))
+            img = cv2.resize(frame_rgb, (800, 500))
             img_pil = Image.fromarray(img)
             img_tk = ImageTk.PhotoImage(image=img_pil)
             label_img.imgtk = img_tk
@@ -197,24 +197,27 @@ def add_user():
                     window.destroy()
                 else:
                     cap.release()
+                    window.destroy()
                     messagebox.showerror("Error", "No face detected. Try again.")
             else:
                 cap.release()
+                window.destroy()
                 messagebox.showerror("Error", "Failed to capture image.")
         else:
             cap.release()
+            window.destroy()
             messagebox.showwarning("Input Error", "Please enter a name.")
 
     window = tk.Toplevel()
     window.title("Add User")
-    window.geometry("400x300")
+    window.geometry("800x650")
     window.iconbitmap("./facey.ico")
     center_window(window)
     window.configure(bg="#f0f8ff")
 
     tk.Label(window, text="Enter Full Name:", font=("Helvetica", 12), bg="#f0f8ff").pack(pady=10)
     entry = tk.Entry(window, font=("Helvetica", 12))
-    entry.pack(pady=5)
+    entry.pack(pady=5, padx=30)
     tk.Button(window, text="Capture", command=save_face, font=("Helvetica", 12), bg="#4CAF50", fg="white").pack(pady=10)
 
     label_img = tk.Label(window, bg="#f0f8ff")
