@@ -86,9 +86,11 @@ def chk_face(frame):
                 if not is_present_today(face_match):
                     save_attendance(face_match)
                     engine = pyttsx3.init()
-                    rate = 100
-                    engine.say(f"Hello {face_match}")
+                    rate = 150
+                    voices = engine.getProperty('voices')
                     engine.setProperty('rate', rate)
+                    engine.setProperty('voice', voices[1].id)
+                    engine.say(f"Hello {face_match}")
                     winsound.Beep(1000, 200)
                     engine.runAndWait()
                 break
